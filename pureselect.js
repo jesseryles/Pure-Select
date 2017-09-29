@@ -5,41 +5,39 @@ var selectOptions = {
 		if(selects.length > 0) {
 			for(var i = 0; i <= selects.length; i++){
 				if(selects[i]) {
-					selects[i].style.display = 'none'
-					var classList = selects[i].classList
-					var selectOptions = selects[i].querySelectorAll('option')
-					var selectName = selects[i].name
-					var selectedIndex = selects[i].selectedIndex
+					selects[i].style.display = 'none';
+					var classList = selects[i].classList;
+					var selectOptions = selects[i].querySelectorAll('option');
+					var selectName = selects[i].name;
+					var selectedIndex = selects[i].selectedIndex;
 
 					if(selectOptions.length > 0)
-						var optionsStart = '<ul class="select-options">'
-						var optionsList = ''
-
-
-
+						var optionsStart = '<ul class="select-options">';
+                        var optionsList = '';
+                        
 						for(var x = 0; x <= selectOptions.length; x++)	{
 							if(selectOptions[x]) {
-								var optionContent = selectOptions[x].innerHTML
-								var optionValue = selectOptions[x].value
-								var optionClass = selectOptions[x].classList
+								var optionContent = selectOptions[x].innerHTML;
+								var optionValue = selectOptions[x].value;
+								var optionClass = selectOptions[x].classList;
 
 								if(x == selectedIndex) {
-									var selectedClass = selectOptions[selectedIndex].classList
-									var selectedValue = '<span class="select-rendered '+selectedClass+'" data-name="'+selectName+'">'+optionContent+'</span><span class="dropdown-arrow"></span>'
-									optionsList = optionsList + '<li class="select-option selected '+optionClass+'" data-value="'+optionValue+'" data-name="'+selectName+'" data-index="'+x+'">'+optionContent+'</li>'
+									var selectedClass = selectOptions[selectedIndex].classList;
+									var selectedValue = '<span class="select-rendered '+selectedClass+'" data-name="'+selectName+'">'+optionContent+'</span><span class="dropdown-arrow"></span>';
+									optionsList = optionsList + '<li class="select-option selected '+optionClass+'" data-value="'+optionValue+'" data-name="'+selectName+'" data-index="'+x+'">'+optionContent+'</li>';
 								} else {
-									optionsList = optionsList + '<li class="select-option '+optionClass+'" data-value="'+optionValue+'" data-name="'+selectName+'" data-index="'+x+'">'+optionContent+'</li>'
+									optionsList = optionsList + '<li class="select-option '+optionClass+'" data-value="'+optionValue+'" data-name="'+selectName+'" data-index="'+x+'">'+optionContent+'</li>';
 								}
 							}
 						}
 
-						var optionsEnd = '</ul>'
+						var optionsEnd = '</ul>';
 
 					selects[i].insertAdjacentHTML('afterend', '<div class="select-dropdown '+classList+'">' + selectedValue + optionsStart + optionsList + optionsEnd + '</div>');
 				}
 			}
 
-			var selectDropdown = document.querySelectorAll('.select-dropdown')
+			var selectDropdown = document.querySelectorAll('.select-dropdown');
 			
 			Array.prototype.forEach.call(selectDropdown, function(currentDropdown, i){
 				var max_w = 0;
@@ -67,16 +65,16 @@ var selectOptions = {
 					}
 
 					el.addEventListener("click", function(){
-						var selectOptionName = this.getAttribute('data-name')
-						var selectOptionValue = this.getAttribute('data-value')
-						var selectOptionIndex = this.getAttribute('data-index')
-						var selectOptionClass = this.classList['value']
-						var targetContainer = utility.findAncestor(this, 'select-dropdown') 
+						var selectOptionName = this.getAttribute('data-name');
+						var selectOptionValue = this.getAttribute('data-value');
+						var selectOptionIndex = this.getAttribute('data-index');
+						var selectOptionClass = this.classList['value'];
+						var targetContainer = utility.findAncestor(this, 'select-dropdown') ;
 						var targetSelect = targetContainer.previousElementSibling;
-						var targetRender = targetContainer.querySelectorAll('.select-rendered[data-name="'+selectOptionName+'"]')
-						var targetOptions = targetContainer.querySelectorAll('.select-option[data-name="'+selectOptionName+'"]')
-						targetSelect.selectedIndex = selectOptionIndex
-						targetRender[0].innerHTML = this.innerHTML
+						var targetRender = targetContainer.querySelectorAll('.select-rendered[data-name="'+selectOptionName+'"]');
+						var targetOptions = targetContainer.querySelectorAll('.select-option[data-name="'+selectOptionName+'"]');
+						targetSelect.selectedIndex = selectOptionIndex;
+						targetRender[0].innerHTML = this.innerHTML;
 
 						var event = document.createEvent('HTMLEvents');
 						event.initEvent('change', true, false);
@@ -85,10 +83,10 @@ var selectOptions = {
 						for(y = 0; y <= targetOptions.length; y++){
 							if(targetOptions[y]) {
 								if(this === targetOptions[y]) {
-									utility.addClass(this, 'selected')
-									targetRender[0].classList =  'select-rendered ' + selectOptionClass
+									utility.addClass(this, 'selected');
+									targetRender[0].classList =  'select-rendered ' + selectOptionClass;
 								} else {
-									utility.removeClass(targetOptions[y], 'selected')
+									utility.removeClass(targetOptions[y], 'selected');
 								}
 							}
 						}
